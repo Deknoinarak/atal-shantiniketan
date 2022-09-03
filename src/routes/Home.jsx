@@ -1,9 +1,10 @@
 import React from "react";
 
-function Home() {
+const Home = () => {
   return (
     <div>
-      Home<h1 class="text-3xl font-bold underline">Hello world!</h1>
+      Home
+      <h1 class="text-3xl font-bold underline">Hello world!</h1>
     </div>
   );
 }
