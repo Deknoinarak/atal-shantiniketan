@@ -1,34 +1,7 @@
 import React from "react";
 import ShantiniketanLogo from "../img/shantiniketan-logo.png";
-// export const Navbar = () => {
-//   return (
-//     <div className="dark:bg-lime-500 bg-sky-600 flex justify-between">
-//       <div className="flex items-center">
-//         <img src={ShantiniketanLogo} className="h-14 my-3 ml-5 mr-3 rounded" />
-//         <span className="font-bold text-xl text-white dark:text-black">
-//           Shantiniketan
-//         </span>
-//       </div>
-//       <div className="flex space-x-4 mr-5">
-//         <a
-//           href="/"
-//           className={classNames(
-//             true
-//               ? "bg-gray-900 text-white"
-//               : "text-gray-300 hover:bg-gray-700 hover:text-white",
-//             "px-3 py-2 rounded-md text-sm font-medium"
-//           )}
-//           // aria-current={item.current ? "page" : undefined}
-//         >
-//           Home
-//         </a>
-//       </div>
-//     </div>
-//   );
-// };
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Disclosure } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
@@ -85,7 +58,7 @@ export function Navbar() {
                         className={classNames(
                           item.current
                             ? "bg-gray-900 text-white"
-                            : "dark:text-black text-gray-300 hover:bg-gray-700 hover:text-white",
+                            : "dark:text-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white dark:hover:text-white",
                           "px-3 py-2 rounded-md text-sm font-medium transition-all "
                         )}
                         aria-current={item.current ? "page" : undefined}
