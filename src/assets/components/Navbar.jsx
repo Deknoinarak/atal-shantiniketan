@@ -1,65 +1,126 @@
 import React from "react";
-import { Navbar as Nav, Dropdown, Avatar } from "flowbite-react";
-import NitiAimLogoColor from "../img/niti-aim-logo.png";
-import NitiAimLogoWhite from "../img/niti-aim-logo-white.png";
-import { MoonIcon } from "@heroicons/react/24/outline";
+import ShantiniketanLogo from "../img/shantiniketan-logo.png";
+// export const Navbar = () => {
+//   return (
+//     <div className="dark:bg-lime-500 bg-sky-600 flex justify-between">
+//       <div className="flex items-center">
+//         <img src={ShantiniketanLogo} className="h-14 my-3 ml-5 mr-3 rounded" />
+//         <span className="font-bold text-xl text-white dark:text-black">
+//           Shantiniketan
+//         </span>
+//       </div>
+//       <div className="flex space-x-4 mr-5">
+//         <a
+//           href="/"
+//           className={classNames(
+//             true
+//               ? "bg-gray-900 text-white"
+//               : "text-gray-300 hover:bg-gray-700 hover:text-white",
+//             "px-3 py-2 rounded-md text-sm font-medium"
+//           )}
+//           // aria-current={item.current ? "page" : undefined}
+//         >
+//           Home
+//         </a>
+//       </div>
+//     </div>
+//   );
+// };
+import { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-function switchTheme(theme) {
-  if (theme = "s") {
-    localStorage.removeItem('theme')
-    console.log("System")
-  }
-  else if (theme) {
-    localStorage.theme = 'dark'
-    console.log("dark")
-  }
-  else {
-    localStorage.theme = 'light'
-    console.log("light")
-  }
-  
+const navigation = [
+  { name: "Home", href: "/", current: true },
+  { name: "Information", href: "#information" },
+  { name: "Projects", href: "#projects" },
+  { name: "Images", href: "#images" },
+];
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
 }
 
-export const Navbar = () => {
+export function Navbar() {
   return (
-    <Nav fluid>
-      <Nav.Brand href="/">
-        <img
-          src={NitiAimLogoColor}
-          className="dark:hidden mr-3 my-2 h-16 ml-5"
-          alt="NITI AIM Logo"
-        />
-        <img
-          src={NitiAimLogoWhite}
-          className="dark:block mr-3 my-2 h-16 ml-5"
-          alt="NITI AIM Logo"
-        />
-      </Nav.Brand>
+    <Disclosure as="nav" className="dark:bg-lime-500 bg-sky-600">
+      {({ open }) => (
+        <>
+          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div className="relative flex h-16 items-center justify-between">
+              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                {/* Mobile menu button*/}
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  <span className="sr-only">Open main menu</span>
+                  {open ? (
+                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                  )}
+                </Disclosure.Button>
+              </div>
+              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-between">
+                <div className="flex flex-shrink-0 items-center">
+                  {/* <img
+                    src={ShantiniketanLogo}
+                    className="block h-14 my-3 ml-5 mr-3"
+                    alt="Shantiniketan Logo"
+                  /> */}
 
-      <div className="flex md:order-2">
-        <div className="mr-5">
-          <Dropdown
-            arrowIcon={false}
-            inline
-            label={
-              <MoonIcon className="w-6 h-6 ml-5 dark:text-white stroke-2 text-gray-800"/>
-            }
-          >
-            <Dropdown.Item><button onClick={() => switchTheme("s")}>System</button></Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item><button onClick={() => switchTheme(true)}>Dark</button></Dropdown.Item>
-            <Dropdown.Item><button onClick={() => switchTheme(false)}>Light</button></Dropdown.Item>
-          </Dropdown>
-        </div>
+                  <img
+                    className="h-12 w-auto block mr-3"
+                    src={ShantiniketanLogo}
+                    alt="Shantiniketan Logo"
+                  />
+                  <span className="font-bold text-xl text-white dark:text-black">
+                    Shantiniketan
+                  </span>
+                </div>
+                <div className="hidden sm:ml-6 sm:flex">
+                  <div className="flex space-x-4 items-center">
+                    {navigation.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className={classNames(
+                          item.current
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "px-3 py-2 rounded-md text-sm font-medium"
+                        )}
+                        aria-current={item.current ? "page" : undefined}
+                      >
+                        {item.name}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <Nav.Toggle />
-      </div>
-      <Nav.Collapse>
-        <Nav.Link href="/" active>
-          Home
-        </Nav.Link>
-        <Nav.Link href="/">About</Nav.Link>
-      </Nav.Collapse>
-    </Nav>
+          <Disclosure.Panel className="sm:hidden">
+            <div className="space-y-1 px-2 pt-2 pb-3">
+              {navigation.map((item) => (
+                <Disclosure.Button
+                  key={item.name}
+                  as="a"
+                  href={item.href}
+                  className={classNames(
+                    item.current
+                      ? "bg-gray-900 text-white"
+                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                    "block px-3 py-2 rounded-md text-base font-medium"
+                  )}
+                  aria-current={item.current ? "page" : undefined}
+                >
+                  {item.name}
+                </Disclosure.Button>
+              ))}
+            </div>
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
   );
-};
+}
