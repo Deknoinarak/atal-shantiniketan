@@ -43,7 +43,7 @@ function classNames(...classes) {
 
 export function Navbar() {
   return (
-    <Disclosure as="nav" className="dark:bg-lime-500 bg-sky-600">
+    <Disclosure as="nav" className="transition-all dark:bg-lime-500 bg-sky-600">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -85,8 +85,8 @@ export function Navbar() {
                         className={classNames(
                           item.current
                             ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "px-3 py-2 rounded-md text-sm font-medium"
+                            : "dark:text-black text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "px-3 py-2 rounded-md text-sm font-medium transition-all "
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >
