@@ -6,19 +6,17 @@ import { Footer } from "./assets/components/Footer";
 
 function App() {
   return (
-    <div>
-      <BrowserRouter>
-        <Navbar />
+    <BrowserRouter>
+      <Navbar />
 
-        <Routes>
-          <Route path="/">
-            <Route index element={<Home />} />
-            <Route path="/about" element={<About />} />
-          </Route>
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-    </div>
+      <Routes>
+        <Route path="/">
+          <Route index element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Route>
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 }
 
