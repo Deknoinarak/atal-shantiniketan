@@ -6,8 +6,8 @@ export const About = () => {
   return (
     <div className="container sm:mx-auto py-5 px-5">
       <h1 className="text-4xl font-bold mt-10">About Us</h1>
-      <div className="grid grid-cols-2 mt-5 gap-5">
-        <div>
+      <div className="grid sm:grid-cols-2 mt-5 gap-5">
+        <div className="text-sm sm:text-base">
           <p>
             ATL is a workspace where young minds can give shape to their ideas
             through hands on do-it-yourself mode; and learn innovation skills.
