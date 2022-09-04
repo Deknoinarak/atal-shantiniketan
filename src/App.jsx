@@ -1,7 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "./assets/components/Navbar";
-import Home from "./routes/Home";
-import { MoonIcon, SunIcon, ComputerDesktopIcon } from "@heroicons/react/24/solid"
+import { Home } from "./routes/Home";
+import { About } from "./routes/About";
+import {
+  MoonIcon,
+  SunIcon,
+  ComputerDesktopIcon,
+} from "@heroicons/react/24/solid";
 
 function switchDark(theme) {
   if (theme === "s") {
@@ -33,35 +38,40 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <Navbar />
-      <div className="flex justify-end bg-lime-500 dark:bg-sky-600">
-        <div className="grid grid-cols-3 my-2 mr-3 gap-5">
-          <button
-            className="bg-slate-300 text-black rounded p-2 text-sm font-medium flex items-center justify-center"
-            onClick={() => switchDark(false)}
-          >
-            <SunIcon className="h-5 w-5 mr-2"/> Light
-          </button>
-          <button
-            className="bg-gray-800 text-white rounded p-2 font-medium flex items-center justify-center text-sm"
-            onClick={() => switchDark(true)}
-          >
-            <MoonIcon className="h-5 w-5 mr-2"/> Dark
-          </button>
-          <button
-            className="bg-yellow-300 text-black rounded p-2 font-medium flex items-center justify-center text-sm"
-            onClick={() => switchDark("s")}
-          >
-            <ComputerDesktopIcon className="h-5 w-5 mr-2"/> System
-          </button>
+    <div>
+      <BrowserRouter>
+        <Navbar />
+        <div className="flex sm:justify-end bg-lime-500 dark:bg-sky-600">
+          <div className="grid sm:grid-cols-3 my-2 mx-3 sm:gap-5 gap-2 w-full sm:w-auto">
+            <button
+              className="bg-slate-300 text-black rounded p-2 text-sm font-medium flex items-center justify-center"
+              onClick={() => switchDark(false)}
+            >
+              <SunIcon className="h-5 w-5 mr-2" /> Light
+            </button>
+            <button
+              className="bg-gray-800 text-white rounded p-2 font-medium flex items-center justify-center text-sm"
+              onClick={() => switchDark(true)}
+            >
+              <MoonIcon className="h-5 w-5 mr-2" /> Dark
+            </button>
+            <button
+              className="bg-yellow-300 text-black rounded p-2 font-medium flex items-center justify-center text-sm"
+              onClick={() => switchDark("s")}
+            >
+              <ComputerDesktopIcon className="h-5 w-5 mr-2" /> System
+            </button>
+          </div>
         </div>
-      </div>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
+        <Routes>
+          <Route path="/">
+            <Route index element={<Home />} />
+            <Route path="/about" element={<About />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 

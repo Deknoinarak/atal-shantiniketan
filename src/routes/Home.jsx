@@ -1,12 +1,10 @@
 import React from "react";
 
-const Home = () => {
+export const Home = () => {
   return (
-    <div>
+    <div className="container sm:mx-auto py-5 px-5">
       Home
       <h1 className="text-3xl font-bold underline">Hello world!</h1>
     </div>
   );
 }
-
-export default Home;
