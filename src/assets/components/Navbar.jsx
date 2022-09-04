@@ -3,19 +3,40 @@ import ShantiniketanLogo from "../img/shantiniketan-logo.png";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-const navigation = [
-  { name: "Home", href: "/", current: true },
-  { name: "Information", href: "#information" },
-  { name: "Projects", href: "#projects" },
-  { name: "Images", href: "#images" },
-  { name: "About Us", href: "/about" },
-];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export function Navbar() {
+  const [navigation, setNavigation] = React.useState([
+    { name: "Home", href: "/" },
+    { name: "Information", href: "#information" },
+    { name: "Projects", href: "#projects" },
+    { name: "Images", href: "#images" },
+    { name: "About Us", href: "/about" },
+  ]);
+
+  React.useEffect(() => {
+    var lookup = {};
+    var result = [];
+    for (var item, i = 0; (item = navigation[i++]); ) {
+      var name = item.name;
+      var href = item.href;
+
+      if (!(name in lookup)) {
+        if (href === window.location.pathname) {
+          lookup[name] = 1;
+          result.push({ ...item, current: true });
+        } else {
+          lookup[name] = 1;
+          result.push(item);
+        }
+      }
+    }
+    console.log(result);
+    setNavigation(result);
+  }, []);
+
   return (
     <Disclosure as="nav" className="transition-all dark:bg-lime-500 bg-sky-600">
       {({ open }) => (
@@ -58,9 +79,9 @@ export function Navbar() {
                 </div>
                 <div className="hidden sm:ml-6 sm:flex">
                   <div className="flex space-x-4 items-center">
-                    {navigation.map((item) => (
+                    {navigation.map((item, i) => (
                       <a
-                        key={item.name}
+                        key={i}
                         href={item.href}
                         className={classNames(
                           item.current
@@ -81,9 +102,9 @@ export function Navbar() {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pt-2 pb-3">
-              {navigation.map((item) => (
+              {navigation.map((item, i) => (
                 <Disclosure.Button
-                  key={item.name}
+                  key={i}
                   as="a"
                   href={item.href}
                   className={classNames(
