@@ -1,3 +1,4 @@
+import { Transition } from "@headlessui/react";
 import React from "react";
 
 export const Home = () => {
@@ -14,9 +15,11 @@ export const Home = () => {
       link: "/about",
     },
     {
-      image: "",
+      image: "/AtalTinkeringLabs.png",
       title: "Information",
-      desc: ``,
+      desc: `ATAL labs were one of biggest projects our government has did. It started in 2016.
+      We adapted it in 2022, January. It was an auspicious day for us. Our Principal - Mrs. Jayashree Jadhav
+      was present to witness the most astonishing movement in 2022...`, 
       btn: "Learn more >",
       link: "#information",
     },
@@ -38,13 +41,13 @@ export const Home = () => {
           <div key={i}>
             {currentSlide === i && (
               <div
-                className="w-full h-screen bg-no-repeat bg-local bg-right flex flex-col sm:flex-row justify-between p-5"
+                className="w-full h-screen bg-no-repeat bg-local bg-right flex flex-col sm:flex-row justify-between p-5 bg-pos-50"
                 style={{
                   backgroundImage: `url("${e.image}")`,
                 }}
               >
                 <div className="flex items-center justify-center max-w-sm min-w-full sm:min-w-min">
-                  <div className="bg-gray-700/50 hover:bg-gray-900/90 transition-all py-12 px-12 rounded flex flex-col justify-center">
+                  <div className="bg-gray-700/90 hover:bg-gray-900/90 transition-all py-12 px-12 rounded flex flex-col justify-center">
                     <span className="mb-2 block font-bold text-xl uppercase">
                       {e.title}
                     </span>
