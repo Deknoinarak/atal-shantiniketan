@@ -6,7 +6,7 @@ export const ImageDisplay = ({ images }) => {
   if (images.length <= 0) {
     return (
       <div className="grid place-content-center w-full h-full">
-        <h1 className="font-bold text-5xl">No images were found.</h1>
+        <h1 className="font-bold text-3xl">No images were found.</h1>
       </div>
     );
   }
@@ -43,16 +43,17 @@ export const ImageDisplay = ({ images }) => {
         {images.slice(0, 4).map((item, i) => (
           <button
             key={i}
-            className="relative w-full h-56 hover:bg-gray-800/25 focus-visible:bg-gray-800/25 transition-all rounded overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2"
+            className="relative w-full h-56  transition-all rounded overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2"
             onClick={() => openPreview(i)}
           >
+            <div className="absolute rounded z-[-98] left-0 top-0 w-full h-full bg-cover bg-center bg-no-repeat group-hover:bg-gray-800/25 group-focus-visible:bg-gray-800/25"></div>
             <div
               style={{
                 backgroundImage: `url('${item.url}')`,
               }}
               className="absolute rounded z-[-99] left-0 top-0 w-full h-full bg-cover bg-center bg-no-repeat"
             ></div>
-            <span className="absolute font-bold text-lg text-slate-50 w-full h-full left-0 top-0 transition-all flex items-center justify-center translate-y-[200px] group-hover:translate-y-0 group-focus:translate-y-0">
+            <span className="absolute z-[-97] font-bold text-lg text-slate-50 w-full h-full left-0 top-0 transition-all flex items-center justify-center translate-y-[200px] group-hover:translate-y-0 group-focus:translate-y-0">
               View
             </span>
           </button>

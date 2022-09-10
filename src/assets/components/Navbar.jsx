@@ -1,7 +1,11 @@
 import React from "react";
 import ShantiniketanLogo from "../img/shantiniketan-logo.png";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  XMarkIcon,
+  ChevronUpIcon,
+} from "@heroicons/react/24/outline";
 import {
   MoonIcon,
   SunIcon,
@@ -208,20 +212,67 @@ function Navbar() {
             <Disclosure.Panel className="md:hidden">
               <div className="space-y-1 px-2 pt-2 pb-3">
                 {navigation.map((item, i) => (
-                  <Disclosure.Button
-                    key={i}
-                    as="a"
-                    href={item.href}
-                    className={classNames(
-                      item.current
-                        ? "bg-gray-900 text-white"
-                        : "dark:text-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white dark:hover:text-white",
-                      "block px-3 py-2 rounded-md text-base font-medium transition-all "
+                  <div key={i}>
+                    {item.dropdown ? (
+                      <Disclosure>
+                        {({ open }) => (
+                          <>
+                            <Disclosure.Button
+                              as="a"
+                              className={classNames(
+                                item.current
+                                  ? "bg-gray-900 text-white"
+                                  : "dark:text-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white dark:hover:text-white",
+                                "flex justify-between items-center px-3 py-2 rounded-md text-base font-medium transition-all cursor-pointer"
+                              )}
+                            >
+                              <span>{item.name}</span>
+                              <ChevronUpIcon
+                                className={`${
+                                  open ? "" : "rotate-180 transform"
+                                } h-5 w-5 text-white inline-block`}
+                              />
+                            </Disclosure.Button>
+                            <Disclosure.Panel className="px-4 py-4 text-sm bg-gray-500 rounded">
+                              {item.droplist.map((e, i) => (
+                                <Disclosure.Button
+                                  key={i}
+                                  as="a"
+                                  href={e.href}
+                                  className={classNames(
+                                    e.current
+                                      ? "bg-gray-800 text-white"
+                                      : "text-gray-300 hover:bg-gray-800 hover:text-white dark:hover:text-white",
+                                    "block px-3 py-2 rounded-md text-base font-medium transition-all"
+                                  )}
+                                  aria-current={
+                                    e.current ? "page" : undefined
+                                  }
+                                >
+                                  {e.name}
+                                </Disclosure.Button>
+                              ))}
+                            </Disclosure.Panel>
+                          </>
+                        )}
+                      </Disclosure>
+                    ) : (
+                      <Disclosure.Button
+                        key={i}
+                        as="a"
+                        href={item.href}
+                        className={classNames(
+                          item.current
+                            ? "bg-gray-900 text-white"
+                            : "dark:text-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white dark:hover:text-white",
+                          "block px-3 py-2 rounded-md text-base font-medium transition-all"
+                        )}
+                        aria-current={item.current ? "page" : undefined}
+                      >
+                        {item.name}
+                      </Disclosure.Button>
                     )}
-                    aria-current={item.current ? "page" : undefined}
-                  >
-                    {item.name}
-                  </Disclosure.Button>
+                  </div>
                 ))}
               </div>
             </Disclosure.Panel>
