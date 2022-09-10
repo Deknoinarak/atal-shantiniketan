@@ -1,12 +1,12 @@
 import React from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { LinkIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 export const ImageDisplay = ({ images }) => {
   if (images.length <= 0) {
     return (
       <div className="grid place-content-center w-full h-full">
-        <h1 className="font-bold text-5xl">No images</h1>
+        <h1 className="font-bold text-5xl">No images were found.</h1>
       </div>
     );
   }
@@ -35,7 +35,11 @@ export const ImageDisplay = ({ images }) => {
 
   return (
     <div>
-      <div className="grid grid-rows-5 sm:grid-cols-2 sm:grid-rows-3 lg:grid-rows-1 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+      <div
+        className={`grid grid-rows-${
+          images.length > 4 ? "5" : images.length + 1
+        } sm:grid-cols-2 sm:grid-rows-3 lg:grid-rows-1 lg:grid-cols-3 xl:grid-cols-5 gap-5`}
+      >
         {images.slice(0, 4).map((item, i) => (
           <button
             key={i}
@@ -192,6 +196,7 @@ export const ImageDisplay = ({ images }) => {
                   </div>
                   <div className="mt-2">
                     <img
+                      loading="lazy"
                       src={images[previewIndex].url}
                       className="rounded left-0 top-0 w-auto h-full max-h-screen bg-cover bg-center bg-no-repeat mx-auto"
                     />
