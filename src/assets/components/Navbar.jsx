@@ -1,11 +1,12 @@
 import React from "react";
 import ShantiniketanLogo from "../img/shantiniketan-logo.png";
-import { Disclosure } from "@headlessui/react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import {
   MoonIcon,
   SunIcon,
   ComputerDesktopIcon,
+  ChevronDownIcon,
 } from "@heroicons/react/24/solid";
 
 function switchDark(theme) {
@@ -30,16 +31,24 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-function Navbar(props) {
+function Navbar() {
   const [navigation, setNavigation] = React.useState([
     { name: "Home", href: "/" },
     { name: "Information", href: "#information" },
     { name: "Projects", href: "#projects" },
-    { name: "Images", href: "#images" },
+    {
+      name: "Images",
+      href: "/images",
+      dropdown: true,
+      droplist: [
+        { name: "Primary", href: "/images#primary" },
+        { name: "Secondary", href: "/images#secondary" },
+        { name: "Sr. Secondary", href: "/images#srsecondary" },
+        { name: "All Images", href: "/images#all" },
+      ],
+    },
     { name: "About Us", href: "/about" },
   ]);
-
-  const Switch = props.switch;
 
   React.useEffect(() => {
     if (
@@ -70,7 +79,6 @@ function Navbar(props) {
         }
       }
     }
-    console.log(result);
     setNavigation(result);
   }, []);
 
@@ -121,19 +129,75 @@ function Navbar(props) {
                   <div className="hidden md:ml-6 md:flex">
                     <div className="flex space-x-4 items-center">
                       {navigation.map((item, i) => (
-                        <a
-                          key={i}
-                          href={item.href}
-                          className={classNames(
-                            item.current
-                              ? "bg-gray-900 text-white"
-                              : "dark:text-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white dark:hover:text-white",
-                            "px-3 py-2 rounded-md text-sm font-medium transition-all "
+                        <div key={i}>
+                          {item.dropdown ? (
+                            <Menu
+                              as="div"
+                              className="relative inline-block text-left"
+                            >
+                              <div>
+                                <Menu.Button
+                                  className={classNames(
+                                    item.current
+                                      ? "bg-gray-900 text-white"
+                                      : "dark:text-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white dark:hover:text-white",
+                                    "px-3 py-2 rounded-md text-sm font-medium transition-all inline-flex"
+                                  )}
+                                >
+                                  {item.name}
+                                  <ChevronDownIcon
+                                    className="ml-2 -mr-1 h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                </Menu.Button>
+                              </div>
+                              <Transition
+                                as={React.Fragment}
+                                enter="transition ease-out duration-100"
+                                enterFrom="transform opacity-0 scale-95"
+                                enterTo="transform opacity-100 scale-100"
+                                leave="transition ease-in duration-75"
+                                leaveFrom="transform opacity-100 scale-100"
+                                leaveTo="transform opacity-0 scale-95"
+                              >
+                                <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                  <div className="px-1 py-1 ">
+                                    {item.droplist.map((e, i) => (
+                                      <Menu.Item key={i}>
+                                        {({ active }) => (
+                                          <a
+                                            href={e.href}
+                                            className={`${
+                                              active
+                                                ? "bg-sky-600 text-slate-50 dark:bg-lime-500 dark:text-gray-800"
+                                                : "text-gray-800"
+                                            } group flex w-full items-center rounded-md px-3 py-2 text-sm`}
+                                          >
+                                            {e.name}
+                                          </a>
+                                        )}
+                                      </Menu.Item>
+                                    ))}
+                                  </div>
+                                </Menu.Items>
+                              </Transition>
+                            </Menu>
+                          ) : (
+                            <a
+                              key={i}
+                              href={item.href}
+                              className={classNames(
+                                item.current
+                                  ? "bg-gray-900 text-white"
+                                  : "dark:text-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white dark:hover:text-white",
+                                "px-3 py-2 rounded-md text-sm font-medium transition-all "
+                              )}
+                              aria-current={item.current ? "page" : undefined}
+                            >
+                              {item.name}
+                            </a>
                           )}
-                          aria-current={item.current ? "page" : undefined}
-                        >
-                          {item.name}
-                        </a>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -187,6 +251,228 @@ function Navbar(props) {
         </div>
       </div>
     </div>
+  );
+}
+
+function EditInactiveIcon(props) {
+  return (
+    <svg
+      {...props}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4 13V16H7L16 7L13 4L4 13Z"
+        fill="#EDE9FE"
+        stroke="#A78BFA"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
+
+function EditActiveIcon(props) {
+  return (
+    <svg
+      {...props}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4 13V16H7L16 7L13 4L4 13Z"
+        fill="#8B5CF6"
+        stroke="#C4B5FD"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
+
+function DuplicateInactiveIcon(props) {
+  return (
+    <svg
+      {...props}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4 4H12V12H4V4Z"
+        fill="#EDE9FE"
+        stroke="#A78BFA"
+        strokeWidth="2"
+      />
+      <path
+        d="M8 8H16V16H8V8Z"
+        fill="#EDE9FE"
+        stroke="#A78BFA"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
+
+function DuplicateActiveIcon(props) {
+  return (
+    <svg
+      {...props}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4 4H12V12H4V4Z"
+        fill="#8B5CF6"
+        stroke="#C4B5FD"
+        strokeWidth="2"
+      />
+      <path
+        d="M8 8H16V16H8V8Z"
+        fill="#8B5CF6"
+        stroke="#C4B5FD"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
+
+function ArchiveInactiveIcon(props) {
+  return (
+    <svg
+      {...props}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="5"
+        y="8"
+        width="10"
+        height="8"
+        fill="#EDE9FE"
+        stroke="#A78BFA"
+        strokeWidth="2"
+      />
+      <rect
+        x="4"
+        y="4"
+        width="12"
+        height="4"
+        fill="#EDE9FE"
+        stroke="#A78BFA"
+        strokeWidth="2"
+      />
+      <path d="M8 12H12" stroke="#A78BFA" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function ArchiveActiveIcon(props) {
+  return (
+    <svg
+      {...props}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="5"
+        y="8"
+        width="10"
+        height="8"
+        fill="#8B5CF6"
+        stroke="#C4B5FD"
+        strokeWidth="2"
+      />
+      <rect
+        x="4"
+        y="4"
+        width="12"
+        height="4"
+        fill="#8B5CF6"
+        stroke="#C4B5FD"
+        strokeWidth="2"
+      />
+      <path d="M8 12H12" stroke="#A78BFA" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function MoveInactiveIcon(props) {
+  return (
+    <svg
+      {...props}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M10 4H16V10" stroke="#A78BFA" strokeWidth="2" />
+      <path d="M16 4L8 12" stroke="#A78BFA" strokeWidth="2" />
+      <path d="M8 6H4V16H14V12" stroke="#A78BFA" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function MoveActiveIcon(props) {
+  return (
+    <svg
+      {...props}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M10 4H16V10" stroke="#C4B5FD" strokeWidth="2" />
+      <path d="M16 4L8 12" stroke="#C4B5FD" strokeWidth="2" />
+      <path d="M8 6H4V16H14V12" stroke="#C4B5FD" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function DeleteInactiveIcon(props) {
+  return (
+    <svg
+      {...props}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="5"
+        y="6"
+        width="10"
+        height="10"
+        fill="#EDE9FE"
+        stroke="#A78BFA"
+        strokeWidth="2"
+      />
+      <path d="M3 6H17" stroke="#A78BFA" strokeWidth="2" />
+      <path d="M8 6V4H12V6" stroke="#A78BFA" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function DeleteActiveIcon(props) {
+  return (
+    <svg
+      {...props}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="5"
+        y="6"
+        width="10"
+        height="10"
+        fill="#8B5CF6"
+        stroke="#C4B5FD"
+        strokeWidth="2"
+      />
+      <path d="M3 6H17" stroke="#C4B5FD" strokeWidth="2" />
+      <path d="M8 6V4H12V6" stroke="#C4B5FD" strokeWidth="2" />
+    </svg>
   );
 }
 

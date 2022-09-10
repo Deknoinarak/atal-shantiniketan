@@ -41,13 +41,13 @@ export const Home = () => {
           <div key={i}>
             {currentSlide === i && (
               <div
-                className="w-full h-screen bg-no-repeat bg-local bg-right flex flex-col sm:flex-row justify-between p-5 bg-pos-50"
+                className="w-full h-screen bg-no-repeat bg-local flex flex-col sm:flex-row justify-between p-5 bg-pos-50"
                 style={{
                   backgroundImage: `url("${e.image}")`,
                 }}
               >
                 <div className="flex items-center justify-center max-w-sm min-w-full sm:min-w-min">
-                  <div className="bg-gray-700/90 hover:bg-gray-900/90 transition-all py-12 px-12 rounded flex flex-col justify-center">
+                  <div className="bg-gray-300/90 hover:bg-gray-400/90 dark:bg-gray-700/90 dark:hover:bg-gray-900/90 transition-all py-12 px-12 rounded flex flex-col justify-center">
                     <span className="mb-2 block font-bold text-xl uppercase">
                       {e.title}
                     </span>
@@ -65,7 +65,7 @@ export const Home = () => {
                 </div>
                 <div className="flex justify-center items-center">
                   <button
-                    className="px-5 bg-slate-50 text-gray-800 rounded py-3 font-bold hover:underline hover:text-blue-800 transition-all"
+                    className="px-5 bg-slate-800 text-slate-50 dark:bg-slate-50 dark:text-gray-800 rounded py-3 font-bold hover:underline hover:text-yellow-50 dark:hover:text-blue-800 transition-all"
                     onClick={handleNext}
                   >
                     Next &gt;
